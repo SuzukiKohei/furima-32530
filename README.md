@@ -1,24 +1,83 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users_table
 
-Things you may want to cover:
+| Column      | Type   | Options     |
+|-------------|--------|-------------|
+| email       | string | null: false |
+| password    | string | null: false |
+| nickname    | string | null: false |
+| name_kanji  | string | null: false |
+| name_kana   | string | null: false |
+| birthday    | string | null: false |
 
-* Ruby version
+### Association
 
-* System dependencies
+has_many :items
+has_many :comments
+has_many :purchase_history
 
-* Configuration
+## items_table
 
-* Database creation
+| Column              | Type       | Options     |
+|---------------------|------------|-------------|
+| name                | string     | null: false |
+| explanation         | text       | null: false |
+| show_category       | string     | null: false |
+| show_state          | string     | null: false |
+| shipping_fee_bearer | string     | null: false |
+| shipping_prefecture | string     | null: false |
+| price               | string     | null: false |
+| user                | references | null: false, foreign_key: true |
 
-* Database initialization
+### Association
 
-* How to run the test suite
+belongs_to :user
+has_many   :comments
+has_one    :purchase_history
 
-* Services (job queues, cache servers, search engines, etc.)
+## purchase_histories_table
 
-* Deployment instructions
+| Column  | Type       | Options                        |
+|---------|------------|--------------------------------|
+| item    | references | null: false, foreign_key: true |
+| user    | references | null: false, foreign_key: true |
+| address | references | null: false, foreign_key: true |
 
-* ...
+### Association
+
+belongs_to :user
+belongs_to :item
+belongs_to :address
+
+## addresses_table
+
+| Column       | Type       | Options     |
+|--------------|------------|-------------|
+| postal_code  | string     | null: false |
+| state        | string     | null: false |
+| city         | string     | null: false |
+| address_line | string     | null: false |
+| building     | string     |             |
+| phone_number | string     | null: false |
+| price        | string     | null: false |
+| purchase_history | references | null: false, foreign_key: true |
+
+### Association
+
+belongs_to :user
+belongs_to :item
+belongs_to :purchase_history
+
+## comments_table
+
+| Column | Type   | Options     |
+|--------|--------|-------------|
+| text   | string | null: false |
+| user   | references | null: false, foreign_key: true |
+| item   | references | null: false, foreign_key: true |
+
+### Association
+
+belongs_to :user
+belongs_to :item
