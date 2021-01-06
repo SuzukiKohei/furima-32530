@@ -4,7 +4,7 @@
 
 | Column             | Type   | Options     |
 |--------------------|--------|-------------|
-| email              | string | null: false |
+| email              | string | null: false, unique: true |
 | encrypted_password | string | null: false |
 | nickname           | string | null: false |
 | name_kanji_sei     | string | null: false |
@@ -64,6 +64,4 @@ has_one    :address
 
 ### Association
 
-belongs_to :user
-belongs_to :item
 belongs_to :purchase_history
