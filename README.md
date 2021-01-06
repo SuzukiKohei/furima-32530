@@ -16,7 +16,7 @@
 ### Association
 
 has_many :items
-has_many :purchase_history
+has_many :purchase_histories
 
 ## items_table
 
