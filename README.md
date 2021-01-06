@@ -7,10 +7,10 @@
 | email              | string | null: false, unique: true |
 | encrypted_password | string | null: false |
 | nickname           | string | null: false |
-| name_kanji_sei     | string | null: false |
-| name_kanji_mei     | string | null: false |
-| name_kana_sei      | string | null: false |
-| name_kana_mei      | string | null: false |
+| first_name         | string | null: false |
+| last_name          | string | null: false |
+| first_name_reading | string | null: false |
+| last_name_reading  | string | null: false |
 | birthday           | date   | null: false |
 
 ### Association
@@ -57,7 +57,7 @@ has_one    :address
 | postal_code            | string     | null: false |
 | shipping_prefecture_id | integer    | null: false |
 | city                   | string     | null: false |
-| address_line           | string     | null: false |
+| address                | string     | null: false |
 | building               | string     |             |
 | phone_number           | string     | null: false |
 | purchase_history       | references | null: false, foreign_key: true |
