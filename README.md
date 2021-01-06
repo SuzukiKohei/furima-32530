@@ -2,38 +2,39 @@
 
 ## users_table
 
-| Column      | Type   | Options     |
-|-------------|--------|-------------|
-| email       | string | null: false |
-| password    | string | null: false |
-| nickname    | string | null: false |
-| name_kanji  | string | null: false |
-| name_kana   | string | null: false |
-| birthday    | string | null: false |
+| Column             | Type   | Options     |
+|--------------------|--------|-------------|
+| email              | string | null: false |
+| encrypted_password | string | null: false |
+| nickname           | string | null: false |
+| name_kanji_sei     | string | null: false |
+| name_kanji_mei     | string | null: false |
+| name_kana_sei      | string | null: false |
+| name_kana_mei      | string | null: false |
+| birthday           | date   | null: false |
 
 ### Association
 
 has_many :items
-has_many :comments
 has_many :purchase_history
 
 ## items_table
 
-| Column              | Type       | Options     |
-|---------------------|------------|-------------|
-| name                | string     | null: false |
-| explanation         | text       | null: false |
-| show_category       | string     | null: false |
-| show_state          | string     | null: false |
-| shipping_fee_bearer | string     | null: false |
-| shipping_prefecture | string     | null: false |
-| price               | string     | null: false |
-| user                | references | null: false, foreign_key: true |
+| Column                 | Type       | Options     |
+|------------------------|------------|-------------|
+| name                   | string     | null: false |
+| explanation            | text       | null: false |
+| show_category_id       | integer    | null: false |
+| show_state_id          | integer    | null: false |
+| shipping_fee_bearer_id | integer    | null: false |
+| shipping_prefecture_id | integer    | null: false |
+| shipping_day_id        | integer    | null: false |
+| price                  | string     | null: false |
+| user                   | references | null: false, foreign_key: true |
 
 ### Association
 
 belongs_to :user
-has_many   :comments
 has_one    :purchase_history
 
 ## purchase_histories_table
@@ -42,13 +43,12 @@ has_one    :purchase_history
 |---------|------------|--------------------------------|
 | item    | references | null: false, foreign_key: true |
 | user    | references | null: false, foreign_key: true |
-| address | references | null: false, foreign_key: true |
 
 ### Association
 
 belongs_to :user
 belongs_to :item
-belongs_to :address
+has_one    :address
 
 ## addresses_table
 
@@ -68,16 +68,3 @@ belongs_to :address
 belongs_to :user
 belongs_to :item
 belongs_to :purchase_history
-
-## comments_table
-
-| Column | Type   | Options     |
-|--------|--------|-------------|
-| text   | string | null: false |
-| user   | references | null: false, foreign_key: true |
-| item   | references | null: false, foreign_key: true |
-
-### Association
-
-belongs_to :user
-belongs_to :item
