@@ -29,7 +29,7 @@ has_many :purchase_history
 | shipping_fee_bearer_id | integer    | null: false |
 | shipping_prefecture_id | integer    | null: false |
 | shipping_day_id        | integer    | null: false |
-| price                  | string     | null: false |
+| price                  | integer    | null: false |
 | user                   | references | null: false, foreign_key: true |
 
 ### Association
@@ -52,16 +52,15 @@ has_one    :address
 
 ## addresses_table
 
-| Column       | Type       | Options     |
-|--------------|------------|-------------|
-| postal_code  | string     | null: false |
-| state        | string     | null: false |
-| city         | string     | null: false |
-| address_line | string     | null: false |
-| building     | string     |             |
-| phone_number | string     | null: false |
-| price        | string     | null: false |
-| purchase_history | references | null: false, foreign_key: true |
+| Column                 | Type       | Options     |
+|------------------------|------------|-------------|
+| postal_code            | string     | null: false |
+| shipping_prefecture_id | integer    | null: false |
+| city                   | string     | null: false |
+| address_line           | string     | null: false |
+| building               | string     |             |
+| phone_number           | string     | null: false |
+| purchase_history       | references | null: false, foreign_key: true |
 
 ### Association
 
