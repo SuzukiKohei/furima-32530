@@ -50,7 +50,7 @@ describe Item do
       it 'priceが空だと登録できない' do
         @item.price = ''
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not included in the list")
+        expect(@item.errors.full_messages).to include('Price is not included in the list')
       end
       it 'priceが半角数字以外だと登録できない（全角）' do
         @item.price = '強力粉薄力粉'
