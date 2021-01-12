@@ -1,4 +1,6 @@
 class Item < ApplicationRecord
+  extend ActiveHash::Associations::ActiveRecordExtensions
+
   with_options presence: true do
     validates :image
     validates :name
@@ -15,14 +17,18 @@ class Item < ApplicationRecord
     validates :price
   end
 
-  validates :show_category_id, :show_state_id, :shipping_fee_bearer_id, :shipping_prefecture_id, :shipping_day_id,
-            numericality: { other_than: 0 }
+  with_options numericality: { other_than: 0, message: 'must be other than 0'} do
+    validates :show_category_id
+    validates :show_state_id
+    validates :shipping_fee_bearer_id
+    validates :shipping_prefecture_id
+    validates :shipping_day_id
+  end
 
   belongs_to :user
   has_one    :purchase_history
   has_one_attached :image
 
-  extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :show_category
   belongs_to :show_state
   belongs_to :shipping_day

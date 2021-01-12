@@ -1,5 +1,5 @@
 require 'rails_helper'
-describe Item do
+RSpec.describe Item,type: :model do
   before do
     @item = FactoryBot.build(:item)
   end
@@ -47,6 +47,31 @@ describe Item do
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping day can't be blank")
       end
+      it 'show_category_idが0だと登録できない' do
+        @item.show_category_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Show category must be other than 0")
+      end
+      it 'show_state_idが0だと登録できない' do
+        @item.show_state_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Show state must be other than 0")
+      end
+      it 'shipping_fee_bearer_idが0だと登録できない' do
+        @item.shipping_fee_bearer_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shipping fee bearer must be other than 0")
+      end
+      it 'shipping_prefecture_idが0だと登録できない' do
+        @item.shipping_prefecture_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shipping prefecture must be other than 0")
+      end
+      it 'shipping_day_idが0だと登録できない' do
+        @item.shipping_day_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shipping day must be other than 0")
+      end
       it 'priceが空だと登録できない' do
         @item.price = ''
         @item.valid?
@@ -59,6 +84,16 @@ describe Item do
       end
       it 'priceが半角数字以外だと登録できない（半角英語）' do
         @item.price = 'aaaaaa'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is not included in the list')
+      end
+      it 'priceが300~9999999以外だと登録できない（下限）' do
+        @item.price = 299
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is not included in the list')
+      end
+      it 'priceが300~9999999以外だと登録できない（上限）' do
+        @item.price = 10_000_000
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not included in the list')
       end
