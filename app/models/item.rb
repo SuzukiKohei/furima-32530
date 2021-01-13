@@ -1,5 +1,4 @@
 class Item < ApplicationRecord
-  extend ActiveHash::Associations::ActiveRecordExtensions
 
   with_options presence: true do
     validates :image
@@ -29,9 +28,11 @@ class Item < ApplicationRecord
   has_one    :purchase_history
   has_one_attached :image
 
+  extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :show_category
   belongs_to :show_state
   belongs_to :shipping_day
   belongs_to :shipping_fee_bearer
-  belongs_to :shipping_prefecture
+  belongs_to :shipping_prefectur
+
 end
