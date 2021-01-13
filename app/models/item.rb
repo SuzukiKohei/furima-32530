@@ -33,6 +33,6 @@ class Item < ApplicationRecord
   belongs_to :show_state
   belongs_to :shipping_day
   belongs_to :shipping_fee_bearer
-  belongs_to :shipping_prefectur
+  belongs_to :shipping_prefecture
 
 end
