@@ -9,7 +9,6 @@ class OrdersController < ApplicationController
     
     @purchase_history_address = PurchaseHistoryAddress.new(purchase_history_address_params)
       if @purchase_history_address.valid?
-        binding.pry
         pay_item
         @purchase_history_address.save
         redirect_to root_path
