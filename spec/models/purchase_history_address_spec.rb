@@ -27,6 +27,11 @@ RSpec.describe PurchaseHistoryAddress, type: :model do
         @purchase_history_address.valid?
         expect(@purchase_history_address.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
       end
+      it 'postal_codeがハイフンなしだと登録できない' do
+        @purchase_history_address.postal_code = '9876543'
+        @purchase_history_address.valid?
+        expect(@purchase_history_address.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
+      end
       it 'shipping_prefecture_idが0だと登録できない' do
         @purchase_history_address.shipping_prefecture_id = 0
         @purchase_history_address.valid?
