@@ -6,7 +6,11 @@ RSpec.describe PurchaseHistoryAddress, type: :model do
 
   describe "商品購入機能" do
     context "商品購入がうまくいく時" do
-      it "token,postal_code,shipping_prefecture_id,city,address,phone_numberがあれば購入できる" do
+      it "token,postal_code,shipping_prefecture_id,city,address,building,phone_numberがあれば購入できる" do
+        expect(@purchase_history_address).to be_valid
+      end
+      it "buildingがなくても登録できる" do
+        @purchase_history_address.building = nil
         expect(@purchase_history_address).to be_valid
       end
     end

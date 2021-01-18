@@ -5,6 +5,7 @@ FactoryBot.define do
     shipping_prefecture_id  { 23 }
     city                    { '秋山市' }
     address                 { '青山1-1-1' }
+    building                { '青木ビル105' }
     phone_number            { '09012345678' }
   end
 end
