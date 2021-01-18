@@ -1,5 +1,7 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!, only: [:index, :create]
   before_action :set_item, only: [:index, :create]
+  before_action :same_user, only: [:index, :create]
 
   def index
     @purchase_history_address = PurchaseHistoryAddress.new
@@ -25,6 +27,12 @@ class OrdersController < ApplicationController
 
   def purchase_history_address_params
     params.require(:purchase_history_address).permit(:postal_code, :shipping_prefecture_id, :city, :address, :building, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+  end
+
+  def same_user
+    unless current_user.id == @item.user_id
+      redirect_to root_path
+    end
   end
 
   def pay_item
