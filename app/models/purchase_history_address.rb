@@ -7,7 +7,7 @@ class PurchaseHistoryAddress
     validates :shipping_prefecture_id, numericality: { other_than: 0, message: "can't be blank" }
     validates :city, format: { with: /\A[ぁ-んァ-ン一-龥]/ }
     validates :address, format: { with: /\A[ぁ-んァ-ン一-龥]/ }
-    validates :phone_number, format: { with: /\A[0-9]+\z/ }
+    validates :phone_number, length: { maximum: 11 }, format: { with: /\A[0-9]+\z/ }
     validates :token
   end
 
