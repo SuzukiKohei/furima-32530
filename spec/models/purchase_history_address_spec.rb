@@ -22,8 +22,13 @@ RSpec.describe PurchaseHistoryAddress, type: :model do
         @purchase_history_address.valid?
         expect(@purchase_history_address.errors.full_messages).to include("Postal code can't be blank")
       end
-      it 'shipping_prefecture_idが空だと登録できない' do
-        @purchase_history_address.shipping_prefecture_id = ''
+      it 'postal_codeが数字のみだと登録できない' do
+        @purchase_history_address.postal_code = '1234567'
+        @purchase_history_address.valid?
+        expect(@purchase_history_address.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
+      end
+      it 'shipping_prefecture_idが0だと登録できない' do
+        @purchase_history_address.shipping_prefecture_id = 0
         @purchase_history_address.valid?
         expect(@purchase_history_address.errors.full_messages).to include("Shipping prefecture can't be blank")
       end
@@ -32,15 +37,30 @@ RSpec.describe PurchaseHistoryAddress, type: :model do
         @purchase_history_address.valid?
         expect(@purchase_history_address.errors.full_messages).to include("City can't be blank")
       end
+      it 'cityが英字だと登録できない' do
+        @purchase_history_address.city = 'aaaaaaaa'
+        @purchase_history_address.valid?
+        expect(@purchase_history_address.errors.full_messages).to include("City is invalid")
+      end
       it 'addressが空だと登録できない' do
         @purchase_history_address.address = ''
         @purchase_history_address.valid?
         expect(@purchase_history_address.errors.full_messages).to include("Address can't be blank")
       end
+      it 'addressが半角英字だと登録できない' do
+        @purchase_history_address.address = 'aaaaaaaa'
+        @purchase_history_address.valid?
+        expect(@purchase_history_address.errors.full_messages).to include("Address is invalid")
+      end
       it 'phone_numberが空だと登録できない' do
         @purchase_history_address.phone_number = ''
         @purchase_history_address.valid?
         expect(@purchase_history_address.errors.full_messages).to include("Phone number can't be blank")
+      end
+      it 'phone_numberが数字以外だと登録できない' do
+        @purchase_history_address.phone_number = 'aaaaaaaa'
+        @purchase_history_address.valid?
+        expect(@purchase_history_address.errors.full_messages).to include("Phone number is invalid")
       end
     end
   end
